@@ -16,9 +16,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
 import { faEye } from "@fortawesome/free-solid-svg-icons/faEye";
 import CourseDrawer from "../CourseDrawer";
+import { useState } from "react";
 
 export default function CourseDisplsy({ course }: { course: Course }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <>
@@ -69,7 +71,13 @@ export default function CourseDisplsy({ course }: { course: Course }) {
           </Stack>
         </CardFooter>
       </Card>
-      <CourseDrawer isOpen={isOpen} course={course} onClose={onClose} />
+      <CourseDrawer
+        isOpen={isOpen}
+        course={course}
+        onClose={onClose}
+        editMode={editMode}
+        completeEdition={() => setEditMode(!editMode)}
+      />
     </>
   );
 }

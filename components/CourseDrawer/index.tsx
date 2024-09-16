@@ -9,6 +9,8 @@ import {
   DrawerFooter,
   Stack,
   Button,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
 import VideoItem from "../VideoItem";
 import { Course } from "../../src/domain/types";
@@ -18,13 +20,17 @@ import { formatTime } from "../../src/helpers/timeMethods";
 type CourseDrawerProps = {
   isOpen: boolean;
   course?: Course;
+  editMode?: boolean;
   onClose: () => void;
+  completeEdition: () => void;
 };
 
 export default function CourseDrawer({
   isOpen,
   onClose,
   course,
+  editMode,
+  completeEdition,
 }: CourseDrawerProps) {
   const { deleteACourse } = useCourseStore((state) => state);
   const totalSeconds = course?.courseVideos.reduce((acc, cur) => {
@@ -42,17 +48,54 @@ export default function CourseDrawer({
       <DrawerContent color="purple">
         <DrawerCloseButton />
         <DrawerHeader fontSize="xx-large" as="h2">
-          {course?.title}
+          {course === undefined
+            ? "Novo Curso"
+            : editMode
+              ? "Editar Curso"
+              : course.title}
         </DrawerHeader>
+
         <DrawerBody>
-          <Heading size="xx-large" as="h3">
-            Descrição
-          </Heading>
-          <p>{course?.description}</p>
+          {editMode ? (
+            <>
+              <Stack m={4}>
+                <Heading size="md" as="h3">
+                  Nome
+                </Heading>
+                <Input
+                  placeholder="Entre com o nome do curso"
+                  value={course?.title || ""}
+                  onChange={(e) =>
+                    console.log("Course name changed:", e.target.value)
+                  }
+                />
+                <Heading mt={4} size="xx-large" as="h3">
+                  Descrição
+                </Heading>
+                <Textarea
+                  placeholder="Entre com o nome do curso"
+                  value={course?.title || ""}
+                  onChange={(e) =>
+                    console.log("Course name changed:", e.target.value)
+                  }
+                />
+              </Stack>
+            </>
+          ) : (
+            <>
+              <Stack m={2}>
+                <Heading size="xx-large" as="h3">
+                  Descrição
+                </Heading>
+                <p>{course?.description}</p>
 
-          <br />
+                <br />
 
-          <p> Duração total: {formatTime(totalSeconds as number)} </p>
+                <p> Duração total: {formatTime(totalSeconds as number)} </p>
+              </Stack>
+            </>
+          )}
+
           <Heading size="xx-large" mt={6} as="h3">
             Vídeos
           </Heading>
@@ -74,9 +117,11 @@ export default function CourseDrawer({
                 <Button
                   width="100%"
                   colorScheme="purple"
-                  onClick={() => console.log("Edit Course")}
+                  onClick={() => {
+                    completeEdition();
+                  }}
                 >
-                  Edit Course
+                  {editMode ? "SALVAR ALTERAÇÕES" : "EDITAR CURSO"}
                 </Button>
                 <Button colorScheme="purple" onClick={deleteCurrentCourse}>
                   Delete Course

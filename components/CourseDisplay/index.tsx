@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -12,6 +13,7 @@ import { Course } from "../../src/mockAPI/types";
 import { faCalendarXmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
+import { faUpRightAndDownLeftFromCenter } from "@fortawesome/free-solid-svg-icons/faUpRightAndDownLeftFromCenter";
 
 export default function CourseDisplsy({ course }: { course: Course }) {
   return (
@@ -52,6 +54,18 @@ export default function CourseDisplsy({ course }: { course: Course }) {
           >
             {course.courseVideos.length}
           </Button>
+          <Button
+            variant="outline"
+            disabled
+            width="fit-content"
+            colorScheme="pink"
+            leftIcon={
+              <FontAwesomeIcon
+                size="xl"
+                icon={faUpRightAndDownLeftFromCenter}
+              />
+            }
+          />
         </Stack>
       </CardFooter>
     </Card>

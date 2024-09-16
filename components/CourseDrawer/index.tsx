@@ -13,6 +13,7 @@ import {
 import VideoItem from "../VideoItem";
 import { Course } from "../../src/domain/types";
 import { useCourseStore } from "../../src/state/courses";
+import { formatTime } from "../../src/helpers/timeMethods";
 
 type CourseDrawerProps = {
   isOpen: boolean;
@@ -26,6 +27,9 @@ export default function CourseDrawer({
   course,
 }: CourseDrawerProps) {
   const { deleteACourse } = useCourseStore((state) => state);
+  const totalSeconds = course?.courseVideos.reduce((acc, cur) => {
+    return acc + cur.duration;
+  }, 0);
 
   const deleteCurrentCourse = () => {
     deleteACourse(course?.id as string);
@@ -45,6 +49,10 @@ export default function CourseDrawer({
             Descrição
           </Heading>
           <p>{course?.description}</p>
+
+          <br />
+
+          <p> Duração total: {formatTime(totalSeconds as number)} </p>
           <Heading size="xx-large" mt={6} as="h3">
             Vídeos
           </Heading>

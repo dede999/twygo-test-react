@@ -1,16 +1,29 @@
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Heading,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { Course } from "../../src/mockAPI/types";
+import { faCalendarXmark } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
 
 export default function CourseDisplsy({ course }: { course: Course }) {
   return (
-    <Card p={4} borderWidth={2} borderRadius={4} overflow="hidden">
+    <Card
+      p={4}
+      borderWidth={1}
+      borderBottomWidth={3}
+      borderRadius={24}
+      overflow="hidden"
+      className="course-card"
+      borderColor="purple.400"
+    >
       <CardHeader>
         <Heading as="h3" size="md">
           {course.title}
@@ -20,10 +33,26 @@ export default function CourseDisplsy({ course }: { course: Course }) {
         <Text>{course.description}</Text>
       </CardBody>
       <CardFooter>
-        <Text>
-          Expiration Date: {course.expirationDate.toLocaleDateString()}
-        </Text>
-        <Text>Number of Videos: {course.courseVideos.length}</Text>
+        <Stack direction="row">
+          <Button
+            variant="outline"
+            disabled
+            width="fit-content"
+            colorScheme="purple"
+            leftIcon={<FontAwesomeIcon size="xl" icon={faCalendarXmark} />}
+          >
+            {course.expirationDate.toLocaleDateString()}
+          </Button>
+          <Button
+            variant="outline"
+            disabled
+            width="fit-content"
+            colorScheme="purple"
+            leftIcon={<FontAwesomeIcon size="xl" icon={faCirclePlay} />}
+          >
+            {course.courseVideos.length}
+          </Button>
+        </Stack>
       </CardFooter>
     </Card>
   );

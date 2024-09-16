@@ -46,22 +46,30 @@ export default function CourseDrawer({
         </DrawerBody>
         <DrawerFooter>
           <Stack width="full">
-            {/* <Button colorScheme="purple" onClick={() => console.log("Create Course")}>
-            Create Course
-          </Button> */}
-            <Button
-              width="100%"
-              colorScheme="purple"
-              onClick={() => console.log("Edit Course")}
-            >
-              Edit Course
-            </Button>
-            <Button
-              colorScheme="purple"
-              onClick={() => console.log("Delete Course")}
-            >
-              Delete Course
-            </Button>
+            {course === undefined ? (
+              <Button
+                colorScheme="purple"
+                onClick={() => console.log("Create Course")}
+              >
+                Create Course
+              </Button>
+            ) : (
+              <>
+                <Button
+                  width="100%"
+                  colorScheme="purple"
+                  onClick={() => console.log("Edit Course")}
+                >
+                  Edit Course
+                </Button>
+                <Button
+                  colorScheme="purple"
+                  onClick={() => console.log("Delete Course")}
+                >
+                  Delete Course
+                </Button>
+              </>
+            )}
           </Stack>
         </DrawerFooter>
       </DrawerContent>

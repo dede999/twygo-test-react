@@ -1,4 +1,4 @@
-import { Course } from "../mockAPI/types";
+import { Course } from "../domain/types";
 
 type CourseStoreActions = {
   seedCourses: () => void;
@@ -36,6 +36,3 @@ type CourseStoreData = {
 };
 
 export type CourseStore = CourseStoreActions & CourseStoreData;
-/**
-Type '{ courses: never[]; seedCourses: () => void; addACourse: (title: string, description: string, expirationDate: Date) => void; editCourse: (id: string, title: string, description: string, expirationDate: Date) => void; deleteACourse: (id: string) => void; }' is not assignable to type 'CourseStore'.
-  Type '{ courses: never[]; seedCourses: () => void; addACourse: (title: string, description: string, expirationDate: Date) => void; editCourse: (id: string, title: string, description: string, expirationDate: Date) => void; deleteACourse: (id: string) => void; }' is missing the following properties from type 'CourseStoreActions': addVideoToCourse, editVideoInCourse, deleteVideoFromCourse*/

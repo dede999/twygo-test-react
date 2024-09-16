@@ -1,5 +1,5 @@
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
-import { CourseVideo } from "../../src/mockAPI/types";
+import { CourseVideo } from "../../src/domain/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons/faCirclePlay";
 

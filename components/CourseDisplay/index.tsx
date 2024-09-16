@@ -9,7 +9,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Course } from "../../src/mockAPI/types";
+import { Course } from "../../src/domain/types";
 // import CourseMenu from "../CourseMenu";
 import { faCalendarXmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -11,7 +11,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import VideoItem from "../VideoItem";
-import { Course } from "../../src/mockAPI/types";
+import { Course } from "../../src/domain/types";
+import { useCourseStore } from "../../src/state/courses";
 
 type CourseDrawerProps = {
   isOpen: boolean;
@@ -24,6 +25,13 @@ export default function CourseDrawer({
   onClose,
   course,
 }: CourseDrawerProps) {
+  const { deleteACourse } = useCourseStore((state) => state);
+
+  const deleteCurrentCourse = () => {
+    deleteACourse(course?.id as string);
+    onClose();
+  };
+
   return (
     <Drawer onClose={onClose} isOpen={isOpen} size={{ lg: "lg", base: "full" }}>
       <DrawerOverlay />
@@ -62,10 +70,7 @@ export default function CourseDrawer({
                 >
                   Edit Course
                 </Button>
-                <Button
-                  colorScheme="purple"
-                  onClick={() => console.log("Delete Course")}
-                >
+                <Button colorScheme="purple" onClick={deleteCurrentCourse}>
                   Delete Course
                 </Button>
               </>

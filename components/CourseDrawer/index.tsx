@@ -86,7 +86,12 @@ export default function CourseDrawer({
                 Vídeos
               </Heading>
               {course.courseVideos.map((video, index) => (
-                <VideoItem key={video.id} video={video} index={index} />
+                <VideoItem
+                  editMode={editMode}
+                  key={video.id}
+                  video={video}
+                  index={index}
+                />
               ))}
             </Stack>
           ) : (

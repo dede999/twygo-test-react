@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { CourseStore } from "./courseStoreMembers";
 import { faker } from "@faker-js/faker";
+import sortCourses from "../helpers/sortCourses";
 
 export const useCourseStore = create<CourseStore>((set) => ({
   courses: [],
@@ -20,7 +21,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
             duration: faker.number.int({ min: 1, max: 4200 }),
           })),
         }),
-      ),
+      ).sort(sortCourses),
     }),
   addACourse: (title: string, description: string, expirationDate: Date) =>
     set((state) => ({
@@ -33,7 +34,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
           expirationDate,
           courseVideos: [],
         },
-      ],
+      ].sort(sortCourses),
     })),
   editCourse: (
     id: string,
@@ -42,11 +43,12 @@ export const useCourseStore = create<CourseStore>((set) => ({
     expirationDate: Date,
   ) =>
     set((state) => ({
-      courses: state.courses.map((course) =>
-        course.id === id
-          ? { ...course, title, description, expirationDate }
-          : course,
-      ),
+      courses: state.courses
+        .map((course) =>
+          course.id === id
+            ? { ...course, title, description, expirationDate }
+            : course,
+        ).sort(sortCourses),
     })),
   deleteACourse: (id: string) => {
     set((state) => ({

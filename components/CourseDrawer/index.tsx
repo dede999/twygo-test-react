@@ -11,11 +11,15 @@ import {
   Button,
   Input,
   Textarea,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import VideoItem from "../VideoItem";
 import { Course } from "../../src/domain/types";
 import { useCourseStore } from "../../src/state/courses";
 import { formatTime } from "../../src/helpers/timeMethods";
+import { useState } from "react";
+import { DayPicker } from "react-day-picker";
+import classNames from "react-day-picker/style.module.css";
 
 type CourseDrawerProps = {
   isOpen: boolean;
@@ -32,6 +36,10 @@ export default function CourseDrawer({
   editMode,
   completeEdition,
 }: CourseDrawerProps) {
+  const today = new Date();
+  const pickerDefault = course?.expirationDate || today;
+  const [month, setMonth] = useState(pickerDefault);
+  const [selected, setSelected] = useState<Date | undefined>(pickerDefault);
   const { deleteACourse } = useCourseStore((state) => state);
   const totalSeconds = course?.courseVideos.reduce((acc, cur) => {
     return acc + cur.duration;
@@ -79,6 +87,38 @@ export default function CourseDrawer({
                     console.log("Course name changed:", e.target.value)
                   }
                 />
+                <Heading mt={4} size="xx-large" as="h3">
+                  Data de término
+                </Heading>
+                <DayPicker
+                  mode="single"
+                  month={month}
+                  onMonthChange={setMonth}
+                  selected={selected}
+                  onSelect={setSelected}
+                  startMonth={today}
+                  disabled={{ before: today }}
+                  classNames={{
+                    ...classNames,
+                    selected: "selected-day",
+                  }}
+                  required
+                />
+
+                <SimpleGrid columns={2} my={4} gap={6}>
+                  <Button
+                    colorScheme="pink"
+                    onClick={() => console.log("SALVAR ALTERAÇÕES")}
+                  >
+                    SALVAR ALTERAÇÕES
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => console.log("DESCARTAR ALTERAÇÕES")}
+                  >
+                    DESCARTAR ALTERAÇÕES
+                  </Button>
+                </SimpleGrid>
               </Stack>
             </>
           ) : (
@@ -91,7 +131,13 @@ export default function CourseDrawer({
 
                 <br />
 
+                <Heading size="xx-large" as="h3">
+                  Dados do curso
+                </Heading>
                 <p> Duração total: {formatTime(totalSeconds as number)} </p>
+                <p>
+                  Data de término: {course?.expirationDate.toLocaleDateString()}{" "}
+                </p>
               </Stack>
             </>
           )}
@@ -121,7 +167,7 @@ export default function CourseDrawer({
                     completeEdition();
                   }}
                 >
-                  {editMode ? "SALVAR ALTERAÇÕES" : "EDITAR CURSO"}
+                  {editMode ? "FINALIZAR EDIÇÃO" : "EDITAR CURSO"}
                 </Button>
                 <Button colorScheme="purple" onClick={deleteCurrentCourse}>
                   Delete Course

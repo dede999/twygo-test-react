@@ -7,3 +7,11 @@
   border-width: 1px 1px 3px 1px;
   border-color: #9f7aea;
 }
+
+.selected-day {
+  border-radius: 20%;
+  box-shadow: 1px 1px 4px 1px #9f7aea;
+  border-color: #9f7aea;
+  color: #553c9a;
+  background-color: #e9d8fd;
+}

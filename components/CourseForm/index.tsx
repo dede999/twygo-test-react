@@ -53,6 +53,9 @@ export default function CourseForm({ course, onClose }: CourseFormProps) {
         Nome
       </Heading>
       <Input
+        borderColor="borderColor"
+        borderWidth={2}
+        borderBottomWidth={3}
         placeholder="Entre com o nome do curso"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -61,6 +64,9 @@ export default function CourseForm({ course, onClose }: CourseFormProps) {
         Descrição
       </Heading>
       <Textarea
+        borderColor="borderColor"
+        borderWidth={2}
+        borderBottomWidth={3}
         placeholder="Entre com a descrição"
         value={description}
         onChange={(e) => setDescription(e.target.value)}

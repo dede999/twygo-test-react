@@ -30,8 +30,11 @@ export default function CourseForm({ course, onClose }: CourseFormProps) {
   );
   const [month, setMonth] = useState(expirationDate);
   const { addACourse, editCourse } = useCourseStore(state => state);
+  const isValid = title.length > 0 && description.length > 0;
 
   const handleSubmit = () => {
+    if (!isValid) return;
+
     if (course?.id === undefined) {
       addACourse(title, description, expirationDate);
       onClose();

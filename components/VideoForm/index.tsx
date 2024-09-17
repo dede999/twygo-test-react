@@ -28,8 +28,12 @@ export default function VideoForm({
   const [videoDuration, setVideoDuration] = useState(video?.duration || 0);
   const [videoURL, setVideoURL] = useState(video?.url || "");
   const [videoIndex, setVideoIndex] = useState(0);
+  const isValid =
+    videoTitle.length > 0 && videoDuration > 0 && videoURL.length > 0;
 
   const handleSubmit = () => {
+    if (!isValid) return;
+
     if (video) {
       editVideoInCourse(
         courseID,

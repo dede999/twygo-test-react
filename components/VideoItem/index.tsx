@@ -10,15 +10,27 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useCourseStore } from "../../src/state/courses";
 
 type VideoItemProps = {
   video: CourseVideo;
+  courseID: string;
   index: number;
   editMode?: boolean;
 };
 
-export default function VideoItem({ video, index, editMode }: VideoItemProps) {
+export default function VideoItem({
+  video,
+  index,
+  editMode,
+  courseID,
+}: VideoItemProps) {
   const [markedForDeletion, setMarkedForDeletion] = useState(false);
+  const { deleteVideoFromCourse } = useCourseStore();
+  const delVideo = () => {
+    deleteVideoFromCourse(courseID, video.id);
+    setMarkedForDeletion(false);
+  };
 
   return (
     <Box bgColor="purple.100" my={2} p={4} borderWidth={1} borderRadius={24}>
@@ -41,7 +53,7 @@ export default function VideoItem({ video, index, editMode }: VideoItemProps) {
               {markedForDeletion && (
                 <>
                   <Button
-                    onClick={() => setMarkedForDeletion(false)}
+                    onClick={delVideo}
                     colorScheme="green"
                     variant="ghost"
                   >

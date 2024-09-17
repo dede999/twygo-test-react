@@ -91,6 +91,7 @@ export default function CourseDrawer({
                   key={video.id}
                   video={video}
                   index={index}
+                  courseID={course.id as string}
                 />
               ))}
             </Stack>

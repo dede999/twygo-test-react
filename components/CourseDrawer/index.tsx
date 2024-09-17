@@ -104,14 +104,7 @@ export default function CourseDrawer({
         </DrawerBody>
         <DrawerFooter>
           <Stack width="full">
-            {course === undefined ? (
-              <Button
-                colorScheme="purple"
-                onClick={() => console.log("Create Course")}
-              >
-                Create Course
-              </Button>
-            ) : (
+            {course !== undefined && (
               <>
                 <Button
                   width="100%"

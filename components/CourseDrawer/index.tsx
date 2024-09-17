@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -78,12 +80,27 @@ export default function CourseDrawer({
             </>
           )}
 
-          <Heading size="xx-large" mt={6} as="h3">
-            Vídeos
-          </Heading>
-          {course?.courseVideos.map((video, index) => (
-            <VideoItem video={video} key={video.id} index={index} />
-          ))}
+          {course?.id ? (
+            <Stack m={2}>
+              <Heading size="xx-large" as="h3">
+                Vídeos
+              </Heading>
+              {course.courseVideos.map((video, index) => (
+                <VideoItem key={video.id} video={video} index={index} />
+              ))}
+            </Stack>
+          ) : (
+            <Alert
+              status="info"
+              color="navy"
+              variant="left-accent"
+              borderRadius="10px"
+              fontWeight={600}
+            >
+              <AlertIcon />
+              Vídeos serão adicionados após a criação do curso.
+            </Alert>
+          )}
         </DrawerBody>
         <DrawerFooter>
           <Stack width="full">

@@ -26,6 +26,7 @@ export default function VideoItem({
   courseID,
 }: VideoItemProps) {
   const [markedForDeletion, setMarkedForDeletion] = useState(false);
+  const [videoEditMode, setVideoEditMode] = useState(false);
   const { deleteVideoFromCourse } = useCourseStore();
   const delVideo = () => {
     deleteVideoFromCourse(courseID, video.id);
@@ -39,17 +40,27 @@ export default function VideoItem({
           {editMode ? (
             <Stack direction="row">
               {!markedForDeletion && (
-                <Button colorScheme="purple" variant="ghost">
-                  <FontAwesomeIcon size="lg" color="purple" icon={faPencil} />
+                <Button
+                  colorScheme="purple"
+                  variant="ghost"
+                  onClick={() => setVideoEditMode(!videoEditMode)}
+                >
+                  <FontAwesomeIcon
+                    size="lg"
+                    color={videoEditMode ? "pink.600" : "purple"}
+                    icon={faPencil}
+                  />
                 </Button>
               )}
-              <Button
-                onClick={() => setMarkedForDeletion(true)}
-                colorScheme="purple"
-                variant="ghost"
-              >
-                <FontAwesomeIcon size="lg" color="purple" icon={faTrashCan} />
-              </Button>
+              {!videoEditMode && (
+                <Button
+                  onClick={() => setMarkedForDeletion(true)}
+                  colorScheme="purple"
+                  variant="ghost"
+                >
+                  <FontAwesomeIcon size="lg" color="purple" icon={faTrashCan} />
+                </Button>
+              )}
               {markedForDeletion && (
                 <>
                   <Button

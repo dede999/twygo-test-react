@@ -90,7 +90,7 @@ export default function CourseForm({ course, onClose }: CourseFormProps) {
         required
       />
 
-      <SimpleGrid columns={2} my={4} gap={6}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} my={4} gap={6}>
         <Button
           colorScheme="pink"
           onClick={handleSubmit}

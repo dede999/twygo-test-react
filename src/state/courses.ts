@@ -85,6 +85,34 @@ export const useCourseStore = create<CourseStore>((set) => ({
     url: string,
     title: string,
     duration: number,
-  ) => {},
-  deleteVideoFromCourse: (courseId, videoId) => {},
+  ) => {
+    set((state) => ({
+      courses: state.courses.map((course) =>
+        course.id === courseId
+          ? {
+              ...course,
+              courseVideos: course.courseVideos.map((video) =>
+                video.id === videoId
+                  ? { ...video, url, title, duration }
+                  : video,
+              ),
+            }
+          : course,
+      ),
+    }));
+  },
+  deleteVideoFromCourse: (courseId, videoId) => {
+    set((state) => ({
+      courses: state.courses.map((course) =>
+        course.id === courseId
+          ? {
+              ...course,
+              courseVideos: course.courseVideos.filter(
+                (video) => video.id !== videoId,
+              ),
+            }
+          : course,
+      ),
+    }));
+  },
 }));

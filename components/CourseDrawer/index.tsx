@@ -124,7 +124,7 @@ export default function CourseDrawer({
                   {editMode ? "FINALIZAR EDIÇÃO" : "EDITAR CURSO"}
                 </Button>
                 <Button colorScheme="purple" onClick={deleteCurrentCourse}>
-                  Delete Course
+                  REMOVER CURSO
                 </Button>
               </>
             )}

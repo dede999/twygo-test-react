@@ -11,12 +11,14 @@ import {
 } from "@chakra-ui/react";
 
 type VideoFormProps = {
+  mx?: number | string;
   video?: CourseVideo;
   courseID: string;
   setVideoEditMode: (signal: boolean) => void;
 };
 
 export default function VideoForm({
+  mx,
   video,
   setVideoEditMode,
   courseID,
@@ -52,10 +54,11 @@ export default function VideoForm({
     setVideoTitle(video?.title || "");
     setVideoDuration(video?.duration || 0);
     setVideoURL(video?.url || "");
+    setVideoEditMode(false);
   };
 
   return (
-    <Stack width="85%">
+    <Stack width="85%" mx={mx}>
       <Heading size="sm">Nome</Heading>
       <Input
         borderColor="purple"

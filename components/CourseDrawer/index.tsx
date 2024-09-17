@@ -17,6 +17,7 @@ import { Course } from "../../src/domain/types";
 import { useCourseStore } from "../../src/state/courses";
 import { formatTime } from "../../src/helpers/timeMethods";
 import CourseForm from "../CourseForm";
+import NewVideo from "../NewVideo";
 
 type CourseDrawerProps = {
   isOpen: boolean;
@@ -107,6 +108,7 @@ export default function CourseDrawer({
               Vídeos serão adicionados após a criação do curso.
             </Alert>
           )}
+            { course?.id && editMode &&  <NewVideo courseID={course.id} />}
         </DrawerBody>
         <DrawerFooter>
           <Stack width="full">

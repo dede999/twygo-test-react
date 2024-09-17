@@ -11,6 +11,7 @@ import {
 import { DayPicker } from "react-day-picker";
 import classNames from "react-day-picker/style.module.css";
 import { useCourseStore } from "../../src/state/courses";
+import { ptBR } from "date-fns/locale"
 
 type CourseFormProps = {
   course?: Course;
@@ -70,6 +71,7 @@ export default function CourseForm({ course, onClose }: CourseFormProps) {
       <DayPicker
         mode="single"
         month={month}
+        locale={ptBR}
         onMonthChange={setMonth}
         selected={expirationDate}
         onSelect={setExpirationDate}

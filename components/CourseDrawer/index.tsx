@@ -9,17 +9,12 @@ import {
   DrawerFooter,
   Stack,
   Button,
-  Input,
-  Textarea,
-  SimpleGrid,
 } from "@chakra-ui/react";
 import VideoItem from "../VideoItem";
 import { Course } from "../../src/domain/types";
 import { useCourseStore } from "../../src/state/courses";
 import { formatTime } from "../../src/helpers/timeMethods";
-import { useState } from "react";
-import { DayPicker } from "react-day-picker";
-import classNames from "react-day-picker/style.module.css";
+import CourseForm from "../CourseForm";
 
 type CourseDrawerProps = {
   isOpen: boolean;
@@ -36,10 +31,6 @@ export default function CourseDrawer({
   editMode,
   completeEdition,
 }: CourseDrawerProps) {
-  const today = new Date();
-  const pickerDefault = course?.expirationDate || today;
-  const [month, setMonth] = useState(pickerDefault);
-  const [selected, setSelected] = useState<Date | undefined>(pickerDefault);
   const { deleteACourse } = useCourseStore((state) => state);
   const totalSeconds = course?.courseVideos.reduce((acc, cur) => {
     return acc + cur.duration;
@@ -65,62 +56,7 @@ export default function CourseDrawer({
 
         <DrawerBody>
           {editMode ? (
-            <>
-              <Stack m={4}>
-                <Heading size="md" as="h3">
-                  Nome
-                </Heading>
-                <Input
-                  placeholder="Entre com o nome do curso"
-                  value={course?.title || ""}
-                  onChange={(e) =>
-                    console.log("Course name changed:", e.target.value)
-                  }
-                />
-                <Heading mt={4} size="xx-large" as="h3">
-                  Descrição
-                </Heading>
-                <Textarea
-                  placeholder="Entre com o nome do curso"
-                  value={course?.title || ""}
-                  onChange={(e) =>
-                    console.log("Course name changed:", e.target.value)
-                  }
-                />
-                <Heading mt={4} size="xx-large" as="h3">
-                  Data de término
-                </Heading>
-                <DayPicker
-                  mode="single"
-                  month={month}
-                  onMonthChange={setMonth}
-                  selected={selected}
-                  onSelect={setSelected}
-                  startMonth={today}
-                  disabled={{ before: today }}
-                  classNames={{
-                    ...classNames,
-                    selected: "selected-day",
-                  }}
-                  required
-                />
-
-                <SimpleGrid columns={2} my={4} gap={6}>
-                  <Button
-                    colorScheme="pink"
-                    onClick={() => console.log("SALVAR ALTERAÇÕES")}
-                  >
-                    SALVAR ALTERAÇÕES
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => console.log("DESCARTAR ALTERAÇÕES")}
-                  >
-                    DESCARTAR ALTERAÇÕES
-                  </Button>
-                </SimpleGrid>
-              </Stack>
-            </>
+            <CourseForm course={course} onClose={onClose} />
           ) : (
             <>
               <Stack m={2}>

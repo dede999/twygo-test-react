@@ -9,7 +9,6 @@ function App() {
   const { courses, seedCourses } = useCourseStore((state) => state);
 
   useEffect(() => {
-    console.log(courses);
     if (courses.length == 0) {
       seedCourses();
     }

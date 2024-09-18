@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -10,18 +9,37 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Course } from "../../src/domain/types";
-// import CourseMenu from "../CourseMenu";
 import { faCalendarXmark } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlay } from "@fortawesome/free-solid-svg-icons/faCirclePlay";
 import { faEye } from "@fortawesome/free-solid-svg-icons/faEye";
 import CourseDrawer from "../CourseDrawer";
+import CardFooterButton, { CardFooterButtonProps } from "../CardFooterButton";
 import { useState } from "react";
 
 export default function CourseDisplsy({ course }: { course: Course }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [editMode, setEditMode] = useState(false);
   const buttonSize = { base: "xs", md: "sm", xl: "md" };
+  const footerButtons = [
+    {
+      variant: "outline",
+      onClick: () => {},
+      icon: faCalendarXmark,
+      content: course.expirationDate.toLocaleDateString(),
+    },
+    {
+      variant: "outline",
+      onClick: () => {},
+      icon: faCirclePlay,
+      content: course.courseVideos.length,
+    },
+    {
+      variant: "solid",
+      onClick: onOpen,
+      icon: faEye,
+      content: "",
+    },
+  ];
 
   return (
     <>
@@ -43,35 +61,21 @@ export default function CourseDisplsy({ course }: { course: Course }) {
         </CardBody>
         <CardFooter>
           <Stack direction="row" mx="auto">
-            <Button
-              variant="outline"
-              disabled
-              size={buttonSize}
-              width="fit-content"
-              colorScheme="purple"
-              leftIcon={<FontAwesomeIcon size="xl" icon={faCalendarXmark} />}
-            >
-              {course.expirationDate.toLocaleDateString()}
-            </Button>
-            <Button
-              variant="outline"
-              disabled
-              size={buttonSize}
-              width="fit-content"
-              colorScheme="purple"
-              leftIcon={<FontAwesomeIcon size="xl" icon={faCirclePlay} />}
-            >
-              {course.courseVideos.length}
-            </Button>
-            <Button
-              variant="solid"
-              disabled
-              size={buttonSize}
-              width="fit-content"
-              colorScheme="purple"
-              onClick={onOpen}
-              leftIcon={<FontAwesomeIcon size="xl" icon={faEye} />}
-            />
+            {footerButtons.map(
+              (
+                button: Omit<CardFooterButtonProps, "buttonSize">,
+                index: number,
+              ) => (
+                <CardFooterButton
+                  content={button.content}
+                  onClick={button.onClick}
+                  buttonSize={buttonSize}
+                  variant={button.variant}
+                  icon={button.icon}
+                  key={index}
+                />
+              ),
+            )}
           </Stack>
         </CardFooter>
       </Card>
